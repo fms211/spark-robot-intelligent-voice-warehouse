@@ -1,0 +1,6 @@
+<launch>
+  <node pkg="spark_course_mission" type="voice_intent.py"
+        name="spark_mission_voice_intent" output="screen" />
+  <test test-name="spark_course_mission_voice_intent" pkg="spark_course_mission"
+        type="test_voice_intent_ros.py" time-limit="15" />
+</launch>

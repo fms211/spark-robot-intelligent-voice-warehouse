@@ -1,0 +1,7 @@
+<launch>
+  <node pkg="spark_course_mission" type="waypoint_capture.py"
+        name="spark_waypoint_capture" output="screen" />
+  <test test-name="spark_course_waypoint_capture"
+        pkg="spark_course_mission" type="test_waypoint_capture_ros.py"
+        time-limit="15" />
+</launch>

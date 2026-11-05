@@ -1,0 +1,33 @@
+# Synthetic map poses for the ROS integration test only.
+valid_waypoints: true
+stations:
+  - id: patrol_a
+    pose: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+    pickup_enabled: false
+  - id: pickup_b
+    pose: [2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+    pickup_enabled: true
+drop_pose: [3.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+home_pose: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+nav_timeout_s: 5.0
+inspect_timeout_s: 3.0
+arm_timeout_s: 5.0
+stop_timeout_s: 2.0
+still_s: 0.2
+max_odom_age_s: 1.0
+max_detection_age_s: 0.5
+
+# Synthetic alignment settings for the mock ROS test.
+align:
+  enabled: true
+  roi_inset_ratio: 0.15
+  step_deg: 30.0
+  fine_step_deg: 10.0
+  max_rotation_deg: 360.0
+  max_steps: 30
+  step_timeout_s: 10.0
+  total_timeout_s: 60.0
+
+# Pixels the detected target must move away from its pre-pick station
+# pixel before the post-pick inspection treats it as carried by the arm.
+pick_verify_motion_px: 25.0

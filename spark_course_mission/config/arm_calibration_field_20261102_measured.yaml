@@ -1,0 +1,94 @@
+# Measured 2026-11-02 on the current D435/SwiftPro assembly.
+# Matrix/ROI/bounds from the 16-point 2D grid fit (run3, mean 1.92 mm,
+# max 4.82 mm). Heights and poses measured in the same session by supervised
+# contact, transport and drop tests. The radius lower bound was widened from
+# the grid minimum 235.8 to 200.0 after a supervised pick/carry/place at
+# radius 213.8 and an independent cup-over-block check at radius 217.4.
+# Disabled 2026-11-03: live camera view no longer matches the calibration view.
+# Recalibrate and validate the current camera/arm arrangement before use.
+valid: false
+calibration_mode: field
+matrix:
+- - -0.02098423024375648
+  - -0.9984513252161082
+  - 467.2867233632155
+- - -0.8701451256737599
+  - -0.12391843599962926
+  - 330.4042979046306
+pixel_roi:
+  u:
+  - 102.64849550605705
+  - 326.77871939736343
+  v:
+  - 186.01418439716312
+  - 292.6709129511677
+bounds_mm:
+  x:
+  - 175.0
+  - 278.94427190999915
+  y:
+  - 20.52786404500042
+  - 205.0
+  z:
+  - -60.0
+  - 120.0
+  radius:
+  - 200.0
+  - 281.1046762907132
+heights_mm:
+  approach: -15.75
+  pick: -45.75
+  transport: 100.0
+  move_wait_s: 0.2
+  pump_wait_s: 1.5
+drop_mm:
+  x: 250.0
+  y: 70.0
+  z: -45.75
+transport_mm:
+  x: 240.0
+  y: 30.0
+  z: 100.0
+field_record:
+  date: '2026-11-02'
+  image_size:
+  - 640
+  - 480
+  source_grid_candidate: arm_calibration_grid_candidate_run3.yaml
+  grid_fit:
+    sample_count: 16
+    inlier_count: 16
+    rank: 3
+    mean_residual_mm: 1.9196468462792193
+    max_residual_mm: 4.819012012098815
+  pick_height_probe:
+    commanded_z_mm: -45.0
+    actual_z_mm: -45.75
+    note: vacuum cup just touched the blue block top
+  supervised_sequence:
+    - descent_to_pick_pose
+    - pump_on_state_1
+    - lift_to_approach
+    - move_to_transport_pose
+    - move_above_drop_and_descend
+    - pump_off_state_0
+    - return_home
+  visual_evidence:
+    - pick_before.png
+    - transport.png
+    - placed.png
+  radius_extension:
+    from_mm: 235.8136369278129
+    to_mm: 200.0
+    rationale: supervised pick/carry/place succeeded at radius 213.8; independent
+      cup-over-block check succeeded at radius 217.4; the grid radius minimum
+      was an artifact of the legacy line sampling, not a physical reach limit.
+  independent_point:
+    pixel_u: 263.1
+    pixel_v: 256.3
+    predicted_x_mm: 205.9
+    predicted_y_mm: 69.8
+    radius_mm: 217.4
+    check: arm moved to predicted point at z=20 mm; camera showed cup over block
+    verified: true
+  independent_point_verified: true

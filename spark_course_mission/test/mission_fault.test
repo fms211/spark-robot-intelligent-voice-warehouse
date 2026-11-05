@@ -1,0 +1,10 @@
+<launch>
+  <node pkg="spark_course_mission" type="mission_manager.py"
+        name="spark_mission_manager" output="screen">
+    <param name="simulation_mode" value="true" />
+    <rosparam file="$(find spark_course_mission)/config/mission_mock.yaml"
+              command="load" ns="mission_config" />
+  </node>
+  <test test-name="spark_course_mission_fault_ros" pkg="spark_course_mission"
+        type="test_mission_fault_ros.py" time-limit="30" />
+</launch>

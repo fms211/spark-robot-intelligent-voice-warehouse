@@ -1,0 +1,67 @@
+# Measured local calibration for the fixed 2026-10-19 D435/SwiftPro setup.
+# Select explicitly; default arm_calibration.yaml stays disabled.
+# Only target centers within pixel_roi and the same block top height are valid.
+# Disabled 2026-10-29: camera and arm base moved; retain historical values.
+valid: false
+calibration_mode: field
+matrix:
+- - 0.058065454724526386
+  - -1.0953174186251136
+  - 538.0778765030719
+- - -0.9648904785122996
+  - -0.027505639984611818
+  - 336.7538151920634
+pixel_roi:
+  u:
+  - 290.0
+  - 306.0
+  v:
+  - 258.0
+  - 272.0
+bounds_mm:
+  x:
+  - 175.0
+  - 285.0
+  y:
+  - -5.0
+  - 80.0
+  z:
+  - -46.0
+  - 102.0
+  radius:
+  - 175.0
+  - 300.0
+heights_mm:
+  approach: -14.58
+  pick: -44.58
+  transport: 100.0
+  move_wait_s: 0.2
+  pump_wait_s: 1.5
+drop_mm:
+  x: 276.62
+  y: 70.0
+  z: -44.58
+transport_mm:
+  x: 180.0
+  y: 0.0
+  z: 100.0
+field_record:
+  date: '2026-10-19'
+  image_size:
+  - 640
+  - 480
+  object: same blue flat-top lightweight block
+  surface: same flat floor and block height
+  camera_mount: D435 fixed relative to arm; remeasure if moved
+  start_pose_required: transport_mm; check clearance before start
+  fit_points:
+  - B
+  - C
+  - A2
+  heldout_point: D
+  heldout_error_mm: 1.6876229130223972
+  validation_scope: local stationary arm; navigation with object not accepted
+  feedrate_mm_min: 600
+  evidence: docs/机械臂实体取放验证_20261019.md
+  field_acceptance: PICK and PLACE actions physically confirmed; object released;
+    arm stowed; no collision or drop

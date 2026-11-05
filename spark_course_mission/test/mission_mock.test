@@ -1,0 +1,16 @@
+<launch>
+  <node pkg="spark_course_mission" type="mission_manager.py"
+        name="spark_mission_manager" output="screen">
+    <param name="simulation_mode" value="true" />
+    <rosparam file="$(find spark_course_mission)/config/mission_mock.yaml"
+              command="load" ns="mission_config" />
+    <rosparam file="$(find spark_course_mission)/config/arm_mock.yaml"
+              command="load" ns="alignment_calibration" />
+  </node>
+  <node pkg="spark_course_mission" type="color_inspector.py"
+        name="spark_mission_color_inspector" output="screen">
+    <rosparam file="$(find spark_course_mission)/config/hsv.yaml" command="load" />
+  </node>
+  <test test-name="spark_course_mission_mock_ros" pkg="spark_course_mission"
+        type="test_mission_mock_ros.py" time-limit="35" />
+</launch>

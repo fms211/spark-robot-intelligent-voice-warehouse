@@ -1,0 +1,80 @@
+<launch>
+  <arg name="camera_type_tel" default="d435" />
+  <arg name="lidar_type_tel" default="ydlidar_g6" />
+  <arg name="map_file" default="$(find spark_slam)/scripts/test_map.yaml" />
+  <arg name="arm_mode" default="mock" />
+  <arg name="arm_port" default="/dev/uarm" />
+  <arg name="arm_calibration_file" default="$(find spark_course_mission)/config/arm_calibration.yaml" />
+  <arg name="arm_feedrate_mm_min" default="600" />
+  <arg name="enable_robot" default="false" />
+  <arg name="enable_voice" default="false" />
+  <arg name="enable_rviz" default="false" />
+  <arg name="navigation_config" default="$(find spark_course_mission)/config/navigation_course.yaml" />
+  <arg name="mission_config" default="$(find spark_course_mission)/config/mission.yaml" />
+  <arg name="inspection_roi_x0" default="0" />
+  <arg name="inspection_roi_y0" default="0" />
+  <arg name="inspection_roi_x1" default="640" />
+  <arg name="inspection_roi_y1" default="480" />
+
+  <group if="$(arg enable_robot)">
+    <include file="$(find spark_navigation)/launch/amcl_demo_lidar.launch">
+      <arg name="camera_type_tel" value="$(arg camera_type_tel)" />
+      <arg name="lidar_type_tel" value="$(arg lidar_type_tel)" />
+      <arg name="start_camera" value="true" />
+      <arg name="map_file" value="$(arg map_file)" />
+    </include>
+    <rosparam file="$(arg navigation_config)" command="load" ns="move_base" />
+  </group>
+
+  <group if="$(eval arg('arm_mode') == 'real')">
+    <include file="$(find swiftpro)/launch/pro_control_nomoveit.launch">
+      <arg name="port" value="$(arg arm_port)" />
+      <arg name="feedrate_mm_min" value="$(arg arm_feedrate_mm_min)" />
+      <arg name="service_only" value="true" />
+    </include>
+    <node pkg="spark_course_mission" type="swiftpro_adapter.py"
+          name="spark_mission_swiftpro_adapter" output="screen" required="true">
+      <param name="arm_mode" value="real" />
+      <param name="port" value="$(arg arm_port)" />
+      <rosparam file="$(arg arm_calibration_file)"
+                command="load" ns="calibration" />
+    </node>
+  </group>
+  <group if="$(eval arg('arm_mode') == 'mock')">
+    <node pkg="spark_course_mission" type="swiftpro_adapter.py"
+          name="spark_mission_swiftpro_adapter" output="screen">
+      <param name="arm_mode" value="mock" />
+      <rosparam file="$(find spark_course_mission)/config/arm_mock.yaml"
+                command="load" ns="calibration" />
+    </node>
+  </group>
+
+  <node pkg="spark_course_mission" type="mission_manager.py"
+        name="spark_mission_manager" output="screen" required="true">
+    <param name="simulation_mode" value="false" />
+    <param name="require_transport_confirmation"
+           value="$(eval arg('arm_mode') == 'real')" />
+    <rosparam file="$(arg mission_config)" command="load" ns="mission_config" />
+    <rosparam file="$(arg arm_calibration_file)"
+              command="load" ns="alignment_calibration" />
+  </node>
+  <node pkg="spark_course_mission" type="color_inspector.py"
+        name="spark_mission_color_inspector" output="screen">
+    <rosparam file="$(find spark_course_mission)/config/hsv.yaml" command="load" />
+    <param name="roi" type="yaml"
+           value="[$(arg inspection_roi_x0), $(arg inspection_roi_y0), $(arg inspection_roi_x1), $(arg inspection_roi_y1)]" />
+  </node>
+
+  <group if="$(arg enable_voice)">
+    <!-- ASR, NLU and TTS are supplied by the separate voice_fms workspace. -->
+    <node pkg="spark_course_mission" type="voice_intent.py"
+          name="spark_mission_voice_intent" output="screen" />
+    <node pkg="spark_course_mission" type="status_speaker.py"
+          name="spark_mission_status_bridge" output="screen" />
+  </group>
+
+  <group if="$(arg enable_rviz)">
+    <node pkg="rviz" type="rviz" name="spark_mission_rviz"
+          args="-d $(find spark_navigation)/rviz/amcl_camera_d435.rviz" />
+  </group>
+</launch>

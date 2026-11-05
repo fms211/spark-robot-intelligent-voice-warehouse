@@ -1,0 +1,44 @@
+# Field candidate from the 2026-11-02 2D grid and the supervised move2grasp trial.
+# Keep this file under review; do not treat the trial as a general workspace calibration.
+# Disabled 2026-11-03: the D435 view moved (~39 px) and this mapping no longer
+# matches the current assembly. Do not enable without a full re-verification.
+valid: false
+calibration_mode: uncalibrated
+matrix:
+  - - -0.02098423024375648
+    - -0.9984513252161082
+    - 467.2867233632155
+  - - -0.8701451256737599
+    - -0.12391843599962926
+    - 330.4042979046306
+pixel_roi:
+  u: [102.64849550605705, 326.77871939736343]
+  v: [186.01418439716312, 292.6709129511677]
+bounds_mm:
+  x: [175.0, 280.0]
+  y: [0.0, 205.0]
+  z: [-60.0, 160.0]
+  radius: [50.0, 320.0]
+heights_mm:
+  approach: 20.0
+  pick: -50.0
+  transport: 150.0
+  move_wait_s: 2.0
+  pump_wait_s: 1.0
+drop_mm:
+  x: 200.0
+  y: 0.0
+  z: -40.0
+transport_mm:
+  x: 250.0
+  y: 0.0
+  z: 150.0
+field_record:
+  date: '2026-11-02'
+  source: '2D calibration grid run3 + supervised original move2grasp trial'
+  matrix_residual_mean_mm: 1.9196468462792193
+  matrix_residual_max_mm: 4.819012012098815
+  target_center_px: [300.0, 215.0]
+  target_arm_prediction_mm: [246.3, 42.7]
+  z_values_source: 'original move2grasp grasp_d435.py z=20/-50 and lift/release positions'
+  validation_scope: 'stationary arm; target must stay in pixel_roi and within bounds; independent validation still required'

@@ -1,0 +1,10 @@
+<launch>
+  <node pkg="spark_course_mission" type="swiftpro_adapter.py"
+        name="spark_mission_swiftpro_adapter" output="screen">
+    <param name="arm_mode" value="mock" />
+    <rosparam file="$(find spark_course_mission)/config/arm_mock.yaml"
+              command="load" ns="calibration" />
+  </node>
+  <test test-name="spark_course_mission_arm_mock" pkg="spark_course_mission"
+        type="test_arm_mock_ros.py" time-limit="20" />
+</launch>

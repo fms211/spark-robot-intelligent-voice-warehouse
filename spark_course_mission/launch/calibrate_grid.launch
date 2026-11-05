@@ -1,0 +1,37 @@
+<launch>
+  <!-- Supervised 2D calibration only. This launch never starts the chassis,
+       the old position-topic calibration nodes, or the pump. -->
+  <arg name="port" default="/dev/uarm" />
+  <arg name="feedrate_mm_min" default="600" />
+  <arg name="output_yaml"
+       default="$(find spark_course_mission)/config/arm_calibration_grid_candidate.yaml" />
+  <arg name="samples_json"
+       default="$(find spark_course_mission)/config/arm_calibration_grid_candidate_samples.json" />
+  <arg name="display" default=":0" />
+
+  <node name="swiftpro_write_node" pkg="swiftpro" type="swiftpro_write_node"
+        output="screen" required="true">
+    <param name="port" value="$(arg port)" />
+    <param name="feedrate_mm_min" value="$(arg feedrate_mm_min)" />
+    <param name="position_tolerance_mm" value="2.5" />
+    <param name="service_only" value="true" />
+  </node>
+
+  <include file="$(find camera_driver_transfer)/launch/d435.launch" />
+
+  <node pkg="spark_course_mission" type="calibration_grid_run.py"
+        name="spark_calibration_grid" output="screen" required="true">
+    <env name="DISPLAY" value="$(arg display)" />
+    <param name="output_yaml" value="$(arg output_yaml)" />
+    <param name="samples_json" value="$(arg samples_json)" />
+    <param name="auto_start" value="false" />
+    <param name="settle_s" value="1.5" type="double" />
+    <param name="frames_per_point" value="5" type="int" />
+    <param name="max_jitter_px" value="8.0" type="double" />
+    <param name="max_center_jump_px" value="60.0" type="double" />
+    <param name="max_step_mm" value="60.0" type="double" />
+    <param name="min_area_px" value="50.0" type="double" />
+    <param name="max_area_px" value="5000.0" type="double" />
+    <param name="collect_frames" value="200" type="int" />
+  </node>
+</launch>

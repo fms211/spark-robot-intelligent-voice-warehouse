@@ -1,0 +1,7 @@
+color_name: blue
+hsv_lower: [92, 90, 110]
+hsv_upper: [130, 255, 255]
+roi: [0, 0, 640, 480]
+min_area_px: 400
+max_jitter_px: 12
+max_age_s: 0.5

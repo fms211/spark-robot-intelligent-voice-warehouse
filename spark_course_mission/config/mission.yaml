@@ -1,0 +1,30 @@
+# Populate and verify field coordinates before allowing any real navigation.
+valid_waypoints: false
+stations: []
+# Empty lists are ROS-serializable placeholders, never valid navigation poses.
+drop_pose: []
+home_pose: []
+nav_timeout_s: 60.0
+inspect_timeout_s: 8.0
+# F600 field actions took about 44 s (pick) / 47 s (place) on 2026-10-19.
+# Project task deadline with margin; driver command timeouts stay independent.
+arm_timeout_s: 90.0
+stop_timeout_s: 3.0
+still_s: 1.0
+max_odom_age_s: 1.0
+max_detection_age_s: 0.5
+
+# Pickup-station self-rotation alignment; window from arm calibration pixel_roi.
+align:
+  enabled: true
+  roi_inset_ratio: 0.15
+  step_deg: 30.0
+  fine_step_deg: 10.0
+  max_rotation_deg: 360.0
+  max_steps: 30
+  step_timeout_s: 10.0
+  total_timeout_s: 60.0
+
+# Pixels the detected target must move away from its pre-pick station
+# pixel before the post-pick inspection treats it as carried by the arm.
+pick_verify_motion_px: 25.0

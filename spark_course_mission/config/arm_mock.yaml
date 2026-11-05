@@ -1,0 +1,19 @@
+# Synthetic geometry for tests only. validate_real_ready rejects mock calibration.
+valid: true
+calibration_mode: mock
+matrix: [[0.2, 0.0, 116.0], [0.0, 0.2, -48.0]]
+pixel_roi:
+  u: [20.0, 80.0]
+  v: [20.0, 80.0]
+bounds_mm:
+  x: [100.0, 250.0]
+  y: [-150.0, 150.0]
+  z: [-50.0, 130.0]
+heights_mm:
+  approach: 80.0
+  pick: -30.0
+  transport: 110.0
+  move_wait_s: 0.0
+  pump_wait_s: 0.0
+drop_mm: {x: 180.0, y: 0.0, z: -20.0}
+transport_mm: {x: 160.0, y: 0.0, z: 110.0}

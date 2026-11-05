@@ -1,0 +1,13 @@
+uint8 PICK=1
+uint8 PLACE=2
+uint8 mode
+string station_id
+float32 center_u
+float32 center_v
+---
+bool success
+bool carrying
+string code
+string detail
+---
+string phase

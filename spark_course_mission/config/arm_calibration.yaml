@@ -1,0 +1,11 @@
+# Real hardware remains disabled until measured, reviewed field calibration.
+# Field mode also requires pixel_roi u/v ranges and bounds_mm.radius within 50..320 mm.
+valid: false
+calibration_mode: uncalibrated
+# Empty matrix is a ROS-serializable placeholder; valid remains false.
+matrix: []
+pixel_roi: {}
+bounds_mm: {}
+heights_mm: {}
+drop_mm: {}
+transport_mm: {}

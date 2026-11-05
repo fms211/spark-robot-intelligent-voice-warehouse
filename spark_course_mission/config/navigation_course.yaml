@@ -1,0 +1,26 @@
+# Course demo settings, still below manufacturer capability limits.
+# Validate physical footprint and field motion before autonomous operation.
+DWAPlannerROS:
+  max_vel_x: 0.20
+  min_vel_x: 0.0
+  max_vel_trans: 0.20
+  min_vel_trans: 0.02
+  max_vel_theta: 0.50
+  min_vel_theta: 0.04
+  trans_stopped_vel: 0.01
+  theta_stopped_vel: 0.02
+  acc_lim_x: 0.5
+  acc_lim_theta: 1.0
+  xy_goal_tolerance: 0.02
+  yaw_goal_tolerance: 0.05
+# Fail to the task controller instead of automatically spinning in recovery.
+recovery_behavior_enabled: false
+# At max_vel_theta 0.50 rad/s a 180-degree in-place turn needs ~6.3 s; keep
+# the 30 s oscillation timeout as margin for acceleration and replanning.
+oscillation_timeout: 30.0
+# Existing model: arm base +44 mm, stowed cup X180 mm; allow object and margin.
+# Verify actual assembly fits this envelope before navigation with an object.
+global_costmap:
+  robot_radius: 0.35
+local_costmap:
+  robot_radius: 0.35

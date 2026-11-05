@@ -1,0 +1,15 @@
+# Candidate only: validate current geometry and all field parameters.
+valid: false
+calibration_mode: uncalibrated
+matrix:
+- - 0.0
+  - -0.9571326678156423
+  - 488.70150504688877
+- - -0.8213408385060377
+  - 0.0
+  - 290.5306286580326
+pixel_roi: {}
+bounds_mm: {}
+heights_mm: {}
+drop_mm: {}
+transport_mm: {}

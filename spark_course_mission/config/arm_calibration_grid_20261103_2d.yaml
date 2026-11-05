@@ -1,0 +1,96 @@
+# Candidate only: 2D grid fit. valid=false.
+# z bounds, heights, drop pose and transport pose are intentionally unset.
+# Do not use this file for real arm motion.
+valid: false
+calibration_mode: uncalibrated
+matrix:
+- - -0.034194646530774954
+  - -1.0147461819351666
+  - 510.75386934641153
+- - -0.8756998028430998
+  - -0.14112934955462153
+  - 340.8000176017184
+pixel_roi:
+  u:
+  - 101.79024006296733
+  - 326.57306843267105
+  v:
+  - 221.9684721099434
+  - 329.7517857142857
+bounds_mm:
+  x:
+  - 175.0
+  - 278.94427190999915
+  y:
+  - 20.52786404500042
+  - 205.0
+  radius:
+  - 235.8136369278129
+  - 281.1046762907132
+heights_mm: {}
+drop_mm: {}
+transport_mm: {}
+fit_record:
+  sample_count: 16
+  inlier_count: 16
+  outlier_indices: []
+  rank: 3
+  condition: 16209.247619310623
+  mean_residual_mm: 2.0707888266863197
+  max_residual_mm: 5.061145722275716
+  fit_passed: true
+  reason: ok
+  notes:
+  - Candidate only; valid=false.
+  - z bounds, pick/place heights, drop pose and transport pose are unset.
+  - Do not use for field motion until all parameters are measured and validated.
+  date: '2026-11-03 18:51:53'
+  grid_points:
+  - - 180.0
+    - 200.0
+    - -110.0
+  - - 181.05572809000085
+    - 175.52786404500043
+    - -110.0
+  - - 190.0
+    - 180.0
+    - -110.0
+  - - 198.94427190999915
+    - 184.47213595499957
+    - -110.0
+  - - 218.94427190999915
+    - 144.47213595499957
+    - -110.0
+  - - 210.0
+    - 140.0
+    - -110.0
+  - - 201.05572809000085
+    - 135.52786404500043
+    - -110.0
+  - - 221.05572809000085
+    - 95.52786404500043
+    - -110.0
+  - - 230.0
+    - 100.0
+    - -110.0
+  - - 238.94427190999915
+    - 104.47213595499957
+    - -110.0
+  - - 258.94427190999915
+    - 64.47213595499957
+    - -110.0
+  - - 250.0
+    - 60.0
+    - -110.0
+  - - 241.05572809000085
+    - 55.52786404500042
+    - -110.0
+  - - 256.05572809000085
+    - 25.52786404500042
+    - -110.0
+  - - 265.0
+    - 30.0
+    - -110.0
+  - - 273.94427190999915
+    - 34.47213595499958
+    - -110.0

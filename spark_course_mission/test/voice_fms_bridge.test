@@ -1,0 +1,7 @@
+<launch>
+  <node pkg="spark_course_mission" type="status_speaker.py"
+        name="spark_mission_status_bridge" output="screen" />
+  <test test-name="spark_course_mission_voice_fms_bridge"
+        pkg="spark_course_mission" type="test_voice_fms_bridge_ros.py"
+        time-limit="15" />
+</launch>

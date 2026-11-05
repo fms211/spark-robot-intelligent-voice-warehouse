@@ -1,0 +1,22 @@
+<launch>
+  <!-- Reuse the original calibration, including its fixed timing and speed. -->
+  <arg name="camera_type_tel" default="d435" />
+  <arg name="arm_port" default="/dev/uarm" />
+  <arg name="feedrate_mm_min" default="3000" />
+
+  <node name="swiftpro_write_node" pkg="swiftpro" type="swiftpro_write_node"
+        required="true" output="screen">
+    <param name="port" value="$(arg arm_port)" />
+    <param name="feedrate_mm_min" value="$(arg feedrate_mm_min)" />
+    <param name="service_only" value="false" />
+  </node>
+  <node name="swiftpro_rviz_node" pkg="swiftpro" type="swiftpro_rviz_node" />
+  <include file="$(find spark_bringup)/launch/driver_bringup.launch">
+    <arg name="camera_type_tel" value="$(arg camera_type_tel)" />
+  </include>
+  <node pkg="spark_carry_object" type="cali_cam_cv3.py" name="cali_cam_cv3_node" required="true" output="screen">
+    <remap from="/camera/rgb/image_raw" to="/camera/color/image_raw" if="$(eval arg('camera_type_tel') == 'd435')" />
+  </node>
+  <node pkg="spark_course_mission" type="calibration_position.py" name="cali_pos_node" required="true" output="screen" />
+  <node pkg="spark_course_mission" type="calibration_prompt.sh" name="calibration_prompt" />
+</launch>

@@ -1,0 +1,55 @@
+# Test-only mission for the supervised full-function acceptance run.
+# Not the field mission: valid_waypoints is true only in this test file.
+# Station, drop and home poses are the 2026-11-02 field captures, each
+# scan-match checked at capture time (drop: mean 0.041 / p90 0.110, n=1036).
+valid_waypoints: true
+stations:
+  # patrol_a (0.046,-3.985) is omitted: on 2026-11-03 the global costmap
+  # marked it 99 (inscribed obstacle) because the captured pose sits 0.55 m
+  # from the wall; the planner had no valid path. Re-capture that station
+  # farther from the wall before using it.
+  - id: patrol_b
+    pose: [0.195128, -4.052796, 0.000000, 0.000000, 0.000000, -0.094026, 0.995570]
+    pickup_enabled: false
+  - id: patrol_c
+    pose: [0.426040, -4.095354, 0.000000, 0.000000, 0.000000, -0.086231, 0.996275]
+    pickup_enabled: false
+  # Fresh stationary AMCL estimate at the pose where the guide image and
+  # blue-block detection were captured. The post-failure reading
+  # (0.581,-4.152) was a localization jump: its scan fit was 11.4 cm mean /
+  # 59% inliers versus 3.7-4.2 cm / 88% here.
+  - id: bench_blue
+    pose: [0.717693, -4.201592, 0.000000, 0.000000, 0.000000, -0.355500, 0.934676]
+    pickup_enabled: true
+drop_pose: [0.420490, -3.187742, 0.000000, 0.000000, 0.000000, 0.798378, 0.602156]
+# The captured home (-0.036,-3.923) sits in the same wall-inflation zone as
+# patrol_a and the planner rejects it; use patrol_c as the reachable home
+# until the start pose is re-captured farther from the wall.
+home_pose: [0.426040, -4.095354, 0.000000, 0.000000, 0.000000, -0.086231, 0.996275]
+nav_timeout_s: 60.0
+inspect_timeout_s: 8.0
+arm_timeout_s: 90.0
+stop_timeout_s: 3.0
+still_s: 1.0
+max_odom_age_s: 1.0
+max_detection_age_s: 0.5
+align:
+  enabled: true
+  roi_inset_ratio: 0.15
+  step_deg: 30.0
+  fine_step_deg: 10.0
+  max_rotation_deg: 360.0
+  max_steps: 30
+  step_timeout_s: 10.0
+  total_timeout_s: 60.0
+
+# Pixels the detected target must move away from its pre-pick station
+# pixel before the post-pick inspection treats it as carried by the arm.
+pick_verify_motion_px: 25.0
+
+# Supervised run: leave the operator time to inspect the stowed arm.
+transport_confirmation_timeout_s: 180.0
+
+# Ignore tracker decisions that still contain frames from the rotation just
+# finished; the 7-frame window at ~30 fps needs about 0.25 s to refill.
+align_settle_s: 0.8

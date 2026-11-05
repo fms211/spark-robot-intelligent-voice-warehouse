@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find spark_course_mission)/launch/mission.launch" />
+  <test test-name="spark_course_default_launch" pkg="spark_course_mission"
+        type="test_default_launch_ros.py" time-limit="25" />
+</launch>

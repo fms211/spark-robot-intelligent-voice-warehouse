@@ -1,0 +1,22 @@
+<launch>
+  <!-- Passive map/AMCL check. Device drivers require explicit opt-in. -->
+  <arg name="map_file" default="$(find spark_slam)/scripts/test_map.yaml" />
+  <arg name="start_base" default="false" />
+  <arg name="start_lidar" default="false" />
+
+  <include file="$(find spark_description)/launch/spark_description.launch">
+    <arg name="camera_type_tel" value="d435" />
+    <arg name="lidar_type_tel" value="ydlidar_g6" />
+  </include>
+
+  <group if="$(arg start_base)">
+    <include file="$(find spark_base)/launch/spark_base.launch" />
+  </group>
+  <group if="$(arg start_lidar)">
+    <include file="$(find lidar_driver_transfer)/launch/ydlidar_g6.launch" />
+  </group>
+
+  <node name="map_server" pkg="map_server" type="map_server"
+        args="$(arg map_file)" output="screen" />
+  <include file="$(find spark_navigation)/launch/includes/amcl/amcl.launch.xml" />
+</launch>

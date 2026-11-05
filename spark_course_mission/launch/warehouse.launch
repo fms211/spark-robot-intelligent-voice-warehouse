@@ -1,0 +1,45 @@
+<launch>
+  <!-- Safe defaults: no hardware and no microphone. -->
+  <arg name="enable_robot" default="false" />
+  <arg name="arm_mode" default="mock" />
+  <arg name="enable_asr" default="false" />
+  <arg name="enable_rviz" default="false" />
+  <arg name="asr_script" default="fms_asr.py" />
+  <arg name="arm_port" default="/dev/uarm" />
+  <arg name="arm_feedrate_mm_min" default="600" />
+  <arg name="arm_calibration_file" default="$(find spark_course_mission)/config/arm_calibration.yaml" />
+  <arg name="map_file" default="$(find spark_slam)/scripts/test_map.yaml" />
+  <arg name="mission_config" default="$(find spark_course_mission)/config/mission.yaml" />
+  <arg name="navigation_config" default="$(find spark_course_mission)/config/navigation_course.yaml" />
+  <arg name="inspection_roi_x0" default="0" />
+  <arg name="inspection_roi_y0" default="0" />
+  <arg name="inspection_roi_x1" default="640" />
+  <arg name="inspection_roi_y1" default="480" />
+
+  <include file="$(find spark_course_mission)/launch/mission.launch">
+    <arg name="camera_type_tel" value="d435" />
+    <arg name="lidar_type_tel" value="ydlidar_g6" />
+    <arg name="enable_robot" value="$(arg enable_robot)" />
+    <arg name="arm_mode" value="$(arg arm_mode)" />
+    <arg name="enable_voice" value="true" />
+    <arg name="enable_rviz" value="$(arg enable_rviz)" />
+    <arg name="arm_port" value="$(arg arm_port)" />
+    <arg name="arm_feedrate_mm_min" value="$(arg arm_feedrate_mm_min)" />
+    <arg name="arm_calibration_file" value="$(arg arm_calibration_file)" />
+    <arg name="map_file" value="$(arg map_file)" />
+    <arg name="mission_config" value="$(arg mission_config)" />
+    <arg name="navigation_config" value="$(arg navigation_config)" />
+    <arg name="inspection_roi_x0" value="$(arg inspection_roi_x0)" />
+    <arg name="inspection_roi_y0" value="$(arg inspection_roi_y0)" />
+    <arg name="inspection_roi_x1" value="$(arg inspection_roi_x1)" />
+    <arg name="inspection_roi_y1" value="$(arg inspection_roi_y1)" />
+  </include>
+  <group if="$(eval arg('enable_asr') and arg('asr_script') == 'fms_asr.py')">
+    <node pkg="spark_course_mission" type="course_voice_asr.py"
+          name="spark_warehouse_asr" launch-prefix="/usr/bin/python3" output="screen" />
+  </group>
+  <group if="$(eval arg('enable_asr') and arg('asr_script') != 'fms_asr.py')">
+    <node pkg="voice_03" type="$(arg asr_script)"
+          name="spark_warehouse_asr" launch-prefix="/usr/bin/python3" output="screen" />
+  </group>
+</launch>

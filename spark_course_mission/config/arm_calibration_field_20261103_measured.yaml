@@ -1,0 +1,83 @@
+# Measured 2026-11-03 on the current D435/SwiftPro assembly.
+# Matrix/ROI/bounds from the 16-point 2D grid fit (rank 3, mean 2.07 mm,
+# max 5.06 mm). Heights and poses measured in the same session by supervised
+# contact, transport and drop tests after the D435 view was restored.
+# The block pixel (312,255) mapped to arm (240.9,31.5); the cup touched the
+# block there, which also serves as the independent point check.
+valid: true
+calibration_mode: field
+matrix:
+- - -0.034194646530774954
+  - -1.0147461819351666
+  - 510.75386934641153
+- - -0.8756998028430998
+  - -0.14112934955462153
+  - 340.8000176017184
+pixel_roi:
+  u:
+  - 101.79024006296733
+  - 326.57306843267105
+  v:
+  - 221.9684721099434
+  - 329.7517857142857
+bounds_mm:
+  x:
+  - 175.0
+  - 278.94427190999915
+  y:
+  - 20.52786404500042
+  - 205.0
+  z:
+  - -60.0
+  - 120.0
+  radius:
+  - 235.8136369278129
+  - 281.1046762907132
+heights_mm:
+  approach: -14.72
+  pick: -44.72
+  transport: 100.0
+  move_wait_s: 0.2
+  pump_wait_s: 1.5
+drop_mm:
+  x: 250.0
+  y: 70.0
+  z: -44.72
+transport_mm:
+  x: 240.0
+  y: 30.0
+  z: 100.0
+field_record:
+  date: '2026-11-03'
+  image_size:
+  - 640
+  - 480
+  source_grid_candidate: arm_calibration_grid_20261103_2d.yaml
+  grid_fit:
+    sample_count: 16
+    inlier_count: 16
+    rank: 3
+    mean_residual_mm: 2.0707888266863197
+    max_residual_mm: 5.061145722275716
+  pick_height_probe:
+    commanded_z_mm: -45.0
+    actual_z_mm: -44.72
+    note: vacuum cup just touched the blue block top
+  supervised_sequence:
+    - pump_on_state_1
+    - lift_to_approach
+    - move_to_transport_pose
+    - move_above_drop_and_descend
+    - pump_off_state_0
+    - return_home
+  visual_evidence:
+    - transport_new.png
+    - placed_new.png
+  independent_point:
+    pixel_u: 312.0
+    pixel_v: 255.4
+    predicted_x_mm: 240.9
+    predicted_y_mm: 31.5
+    radius_mm: 242.9
+    check: cup touched the block top at the predicted point
+    verified: true

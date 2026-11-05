@@ -1,0 +1,7 @@
+string kind
+string station_id
+bool pickup_enabled
+---
+bool success
+string yaml_snippet
+string reason
